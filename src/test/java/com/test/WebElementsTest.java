@@ -47,5 +47,14 @@ public class WebElementsTest {
 		//3 - Valida o resultado
 		assertEquals("Hello world automation test", textFieldName.getAttribute("value"));
 	}
+	
+	@Test
+	public void testValidaTextFieldHabilitadoEDesabilitado() {
+		WebElement textFieldName = driver.findElement(By.name("txtbox1"));
+		assertTrue(textFieldName.isEnabled());
+		
+		WebElement textFieldNameDisable = driver.findElement(By.name("txtbox2"));
+		assertFalse(textFieldNameDisable.isEnabled());		
+	}
 
 }
