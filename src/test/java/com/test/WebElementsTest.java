@@ -2,6 +2,8 @@ package com.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,7 @@ public class WebElementsTest {
 		driver = new ChromeDriver();
 		//abre o site
 		driver.get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");
+		Thread.sleep(2000);
 	}
 
 	@AfterEach
@@ -40,6 +43,7 @@ public class WebElementsTest {
 	public void testValidaTextoNoTextField() throws InterruptedException {
 		//1 - Identica o elemento na página
 		WebElement textFieldName = driver.findElement(By.name("txtbox1"));
+		
 		//2 - Interação com o elemento na página		
 		textFieldName.sendKeys("Hello world automation test");
 				
@@ -56,5 +60,33 @@ public class WebElementsTest {
 		WebElement textFieldNameDisable = driver.findElement(By.name("txtbox2"));
 		assertFalse(textFieldNameDisable.isEnabled());		
 	}
+	
+	@Test
+	public void testValidaRadioGroup() throws InterruptedException {
+		List<WebElement> listRadios = driver.findElements(By.name("radioGroup1"));
+		
+		for (WebElement radio : listRadios) {
+			System.out.println(radio.getAttribute("value"));
+			
+			if (radio.getAttribute("value").equals("Radio 3")) {
+				radio.click();
+				break;
+			}
+		}
+		
+		//listRadios.get(2).click();
+		
+		Thread.sleep(2000);
+		
+		assertFalse(listRadios.get(0).isSelected());
+		assertFalse(listRadios.get(1).isSelected());
+		assertTrue(listRadios.get(2).isSelected());
+		assertFalse(listRadios.get(3).isSelected());
+	}
 
 }
+
+
+
+
+
