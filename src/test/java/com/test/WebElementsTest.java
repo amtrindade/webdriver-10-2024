@@ -31,6 +31,7 @@ public class WebElementsTest {
 
 	@AfterEach
 	public void tearDown() throws Exception {
+		Thread.sleep(2000);
 		driver.quit();
 	}
 
@@ -47,7 +48,6 @@ public class WebElementsTest {
 		//2 - Interação com o elemento na página		
 		textFieldName.sendKeys("Hello world automation test");
 				
-		Thread.sleep(3000);
 		//3 - Valida o resultado
 		assertEquals("Hello world automation test", textFieldName.getAttribute("value"));
 	}
@@ -74,16 +74,36 @@ public class WebElementsTest {
 			}
 		}
 		
-		//listRadios.get(2).click();
-		
-		Thread.sleep(2000);
-		
+		//listRadios.get(2).click();	
+				
 		assertFalse(listRadios.get(0).isSelected());
 		assertFalse(listRadios.get(1).isSelected());
 		assertTrue(listRadios.get(2).isSelected());
 		assertFalse(listRadios.get(3).isSelected());
 	}
-
+	
+	@Test
+	public void testValidaCheckBoxes() {
+		List<WebElement> listCheckBoxes = driver.findElements(By.name("chkbox"));
+		
+		assertEquals(4, listCheckBoxes.size());
+		
+		for (WebElement checkBox : listCheckBoxes) {
+			System.out.println(checkBox.getAttribute("value"));
+			
+			//se a condição for verdadeira ou falsa => verdadeiro
+			
+			if ((checkBox.getAttribute("value").equals("Check 3")) || 
+					(checkBox.getAttribute("value").equals("Check 4"))) {
+				checkBox.click();
+			}						
+		}
+		
+		assertFalse(listCheckBoxes.get(0).isSelected());
+		assertFalse(listCheckBoxes.get(1).isSelected());
+		assertTrue(listCheckBoxes.get(2).isSelected());
+		assertTrue(listCheckBoxes.get(3).isSelected());
+	}
 }
 
 
