@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 
 public class WebElementsTest {
@@ -104,6 +105,24 @@ public class WebElementsTest {
 		assertTrue(listCheckBoxes.get(2).isSelected());
 		assertTrue(listCheckBoxes.get(3).isSelected());
 	}
+	
+	@Test
+	public void testValidaSelectSingle() throws InterruptedException {
+		WebElement comboSingle = driver.findElement(By.name("dropdownlist"));
+		
+		Select selectSingle = new Select(comboSingle);
+			
+		selectSingle.selectByIndex(1);
+		assertEquals("Item 2", selectSingle.getFirstSelectedOption().getText());
+		Thread.sleep(1000);
+		selectSingle.selectByIndex(2);
+		assertEquals("Item 3", selectSingle.getFirstSelectedOption().getText());
+		Thread.sleep(1000);
+		selectSingle.selectByVisibleText("Item 7");
+				
+		assertEquals("Item 7", selectSingle.getFirstSelectedOption().getText());		
+	}
+	
 }
 
 
