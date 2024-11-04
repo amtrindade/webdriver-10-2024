@@ -172,5 +172,27 @@ public class WebElementsTest {
 		myAlert.accept();		
 		
 	}
+	
+	@Test
+	public void testPromptCaminhoFeliz() throws InterruptedException {
+		WebElement btnPrompt = driver.findElement(By.id("promptBtn"));
+		btnPrompt.click();
+		
+		Alert prompt01 = driver.switchTo().alert();
+		prompt01.sendKeys("2024");
+		Thread.sleep(3000);
+		prompt01.accept();
+		
+		Alert prompt02 = driver.switchTo().alert();
+		assertEquals("O ano é 2024?", prompt02.getText());
+		Thread.sleep(2000);
+		prompt02.accept();
+		
+		Alert prompt03 = driver.switchTo().alert();
+		assertEquals("Feito!", prompt03.getText());
+		Thread.sleep(2000);
+
+		prompt03.accept();
+	}
 
 }
