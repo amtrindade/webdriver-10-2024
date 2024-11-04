@@ -92,7 +92,6 @@ public class WebElementsTest {
 			System.out.println(checkBox.getAttribute("value"));
 
 			// se a condição for verdadeira ou falsa => verdadeiro
-
 			if ((checkBox.getAttribute("value").equals("Check 3"))
 					|| (checkBox.getAttribute("value").equals("Check 4"))) {
 				checkBox.click();
@@ -141,6 +140,21 @@ public class WebElementsTest {
 		assertEquals("Item 5", listAllOptions.get(0).getText());
 		assertEquals("Item 8", listAllOptions.get(1).getText());
 		assertEquals("Item 9", listAllOptions.get(2).getText());
+	}
+	
+	@Test
+	public void testIFrame() {
+		//Entra no iframe
+		driver.switchTo().frame(0);
+		
+		WebElement tfIframe = driver.findElement(By.id("tfiframe"));
+		tfIframe.sendKeys("Escreve no iframe");
+		
+		assertEquals("Escreve no iframe", tfIframe.getAttribute("value"));
+		
+		//Volta para o contexto default, a origem
+		driver.switchTo().defaultContent();
+		
 	}
 
 }
