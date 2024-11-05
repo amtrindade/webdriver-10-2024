@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -143,6 +144,7 @@ public class WebElementsTest {
 		assertEquals("Item 9", listAllOptions.get(2).getText());
 	}
 	
+	@Disabled("Bug cadastrado no Mantis com o código xyz5500")
 	@Test
 	public void testIFrame() {
 		//Entra no iframe
