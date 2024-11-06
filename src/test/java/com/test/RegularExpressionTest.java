@@ -1,6 +1,5 @@
 package com.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterEach;
@@ -45,6 +44,27 @@ public class RegularExpressionTest {
 		System.out.println(cpf);		
 		
 		assertTrue(cpf.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$"));		
+	}
+	
+	@Test
+	public void testGenerateCPFSemMascara() throws InterruptedException {
+		
+		WebElement btnGerar = driver.findElement(By.id("btn-gerar-cpf"));
+		btnGerar.click();
+		
+		Thread.sleep(2000);
+		
+		WebElement tfNumero = driver.findElement(By.id("numero"));
+		String cpf = tfNumero.getAttribute("value");
+		
+		System.out.println(cpf);		
+		
+		assertTrue(cpf.matches("^\\d{11}$"));	
+		
+		
+		
+		
+		
 	}
 
 }
