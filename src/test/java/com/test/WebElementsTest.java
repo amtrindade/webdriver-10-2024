@@ -1,51 +1,39 @@
 package com.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static com.core.DriverFactory.getDriver;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class WebElementsTest {
+import com.core.BaseTest;
 
-	public WebDriver driver;
+public class WebElementsTest extends BaseTest{
 
+	
 	@BeforeEach
 	public void setUp() throws Exception {
-		// Alterar a pasta de acordo com o path no seu computador
-		// C:\\drivers\\chromedriver.exe
-		System.setProperty("webdriver.chrome.driver", "/Users/umov.me/Dev/drivers/chromedriver");
-		// cria o driver
-		driver = new ChromeDriver();
 		// abre o site
-		driver.get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");
-		Thread.sleep(2000);
+		getDriver().get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");
 	}
-
-	@AfterEach
-	public void tearDown() throws Exception {
-		Thread.sleep(2000);
-		driver.quit();
-	}
-
+	
 	@Test
 	public void testValidaTituloDaPagina() {
-		assertEquals("WebElements Test Page Lab", driver.getTitle());
+		assertEquals("WebElements Test Page Lab", getDriver().getTitle());
 	}
 
 	@Test
 	public void testValidaTextoNoTextField() throws InterruptedException {
 		// 1 - Identica o elemento na página
-		WebElement textFieldName = driver.findElement(By.name("txtbox1"));
+		WebElement textFieldName = getDriver().findElement(By.name("txtbox1"));
 
 		// 2 - Interação com o elemento na página
 		textFieldName.sendKeys("Hello world automation test");
@@ -56,16 +44,16 @@ public class WebElementsTest {
 
 	@Test
 	public void testValidaTextFieldHabilitadoEDesabilitado() {
-		WebElement textFieldName = driver.findElement(By.name("txtbox1"));
+		WebElement textFieldName = getDriver().findElement(By.name("txtbox1"));
 		assertTrue(textFieldName.isEnabled());
 
-		WebElement textFieldNameDisable = driver.findElement(By.name("txtbox2"));
+		WebElement textFieldNameDisable = getDriver().findElement(By.name("txtbox2"));
 		assertFalse(textFieldNameDisable.isEnabled());
 	}
 
 	@Test
 	public void testValidaRadioGroup() throws InterruptedException {
-		List<WebElement> listRadios = driver.findElements(By.name("radioGroup1"));
+		List<WebElement> listRadios = getDriver().findElements(By.name("radioGroup1"));
 
 		for (WebElement radio : listRadios) {
 			System.out.println(radio.getAttribute("value"));
@@ -86,7 +74,7 @@ public class WebElementsTest {
 
 	@Test
 	public void testValidaCheckBoxes() {
-		List<WebElement> listCheckBoxes = driver.findElements(By.name("chkbox"));
+		List<WebElement> listCheckBoxes = getDriver().findElements(By.name("chkbox"));
 
 		assertEquals(4, listCheckBoxes.size());
 
@@ -108,7 +96,7 @@ public class WebElementsTest {
 
 	@Test
 	public void testValidaSelectSingle() throws InterruptedException {
-		WebElement comboSingle = driver.findElement(By.name("dropdownlist"));
+		WebElement comboSingle = getDriver().findElement(By.name("dropdownlist"));
 
 		Select selectSingle = new Select(comboSingle);
 
@@ -125,7 +113,7 @@ public class WebElementsTest {
 	
 	@Test
 	public void testValidaSelectMulti() throws InterruptedException {
-		WebElement comboMulti = driver.findElement(By.name("multiselectdropdown"));
+		WebElement comboMulti = getDriver().findElement(By.name("multiselectdropdown"));
 		
 		Select selectMulti = new Select(comboMulti);
 		
@@ -144,28 +132,27 @@ public class WebElementsTest {
 		assertEquals("Item 9", listAllOptions.get(2).getText());
 	}
 	
-	@Disabled("Bug cadastrado no Mantis com o código xyz5500")
 	@Test
 	public void testIFrame() {
 		//Entra no iframe
-		driver.switchTo().frame(0);
+		getDriver().switchTo().frame(0);
 		
-		WebElement tfIframe = driver.findElement(By.id("tfiframe"));
+		WebElement tfIframe = getDriver().findElement(By.id("tfiframe"));
 		tfIframe.sendKeys("Escreve no iframe");
 		
 		assertEquals("Escreve no iframe", tfIframe.getAttribute("value"));
 		
 		//Volta para o contexto default, a origem
-		driver.switchTo().defaultContent();
+		getDriver().switchTo().defaultContent();
 		
 	}
 	
 	@Test
 	public void testAlert() throws InterruptedException {
-		WebElement btnAlert = driver.findElement(By.name("alertbtn"));
+		WebElement btnAlert = getDriver().findElement(By.name("alertbtn"));
 		btnAlert.click();
 		
-		Alert myAlert = driver.switchTo().alert();
+		Alert myAlert = getDriver().switchTo().alert();
 			
 		assertEquals("Eu sou um alerta!", myAlert.getText());
 		
@@ -177,20 +164,20 @@ public class WebElementsTest {
 	
 	@Test
 	public void testPromptCaminhoFeliz() throws InterruptedException {
-		WebElement btnPrompt = driver.findElement(By.id("promptBtn"));
+		WebElement btnPrompt = getDriver().findElement(By.id("promptBtn"));
 		btnPrompt.click();
 		
-		Alert prompt01 = driver.switchTo().alert();
+		Alert prompt01 = getDriver().switchTo().alert();
 		prompt01.sendKeys("2024");
 		Thread.sleep(3000);
 		prompt01.accept();
 		
-		Alert prompt02 = driver.switchTo().alert();
+		Alert prompt02 = getDriver().switchTo().alert();
 		assertEquals("O ano é 2024?", prompt02.getText());
 		Thread.sleep(2000);
 		prompt02.accept();
 		
-		Alert prompt03 = driver.switchTo().alert();
+		Alert prompt03 = getDriver().switchTo().alert();
 		assertEquals("Feito!", prompt03.getText());
 		Thread.sleep(2000);
 

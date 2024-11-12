@@ -1,47 +1,36 @@
 package com.test;
 
+import static com.core.DriverFactory.getDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.Duration;
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
-public class DragAndDropTest {
-	
-	public WebDriver driver;
+import com.core.BaseTest;
 
+public class DragAndDropTest extends BaseTest {
+	
+	
 	@BeforeEach
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.chrome.driver", "/Users/umov.me/Dev/drivers/chromedriver");
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		driver.get("https://jqueryui.com/resources/demos/droppable/default.html");
-		Thread.sleep(2000);
+		getDriver().get("https://jqueryui.com/resources/demos/droppable/default.html");
+	
 	}
 
-	@AfterEach
-	public void tearDown() throws Exception {
-		Thread.sleep(2000);
-		driver.quit();
-	}
-	
+		
 	@Test
 	public void testDragAndDrop() {
-		WebElement origin = driver.findElement(By.id("draggable"));
-		WebElement destiny = driver.findElement(By.id("droppable"));
+		WebElement origin = getDriver().findElement(By.id("draggable"));
+		WebElement destiny = getDriver().findElement(By.id("droppable"));
 		
 		assertEquals("Drag me to my target", origin.getText());
 		assertEquals("Drop here", destiny.getText());
 		
 		//Actions webdriver
-		new Actions(driver).dragAndDrop(origin, destiny).perform();
+		new Actions(getDriver()).dragAndDrop(origin, destiny).perform();
 		
 		assertEquals("Dropped!", destiny.getText());	
 	}

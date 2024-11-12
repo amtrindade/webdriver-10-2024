@@ -1,23 +1,22 @@
 package com.test;
 
+import static com.core.DriverFactory.getDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
 import java.util.Random;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CalculadoraTest {
-	
-	public WebDriver driver;
+import com.core.BaseTest;
+
+public class CalculadoraTest extends BaseTest{
+		
 	public Random random; 
 	//WebDriver wait sendo declarado
 	public WebDriverWait wait;
@@ -27,30 +26,21 @@ public class CalculadoraTest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.chrome.driver", "/Users/umov.me/Dev/drivers/chromedriver");
-		driver = new ChromeDriver();
-		//Espera implícita
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
 		//WebDriverWait sendo criado
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 		random = new Random();
 		
 		//Abre a página
-		driver.get("https://antoniotrindade.com.br/treinoautomacao/desafiosoma.html");
+		getDriver().get("https://antoniotrindade.com.br/treinoautomacao/desafiosoma.html");
 		
 		//mapeia
-		tfNumber1 = driver.findElement(By.id("number1"));
-		tfNumber2 = driver.findElement(By.id("number2"));
-		tfTotal = driver.findElement(By.xpath("//input[@id='total']"));
-		
-		Thread.sleep(2000);
+		tfNumber1 = getDriver().findElement(By.id("number1"));
+		tfNumber2 = getDriver().findElement(By.id("number2"));
+		tfTotal = getDriver().findElement(By.xpath("//input[@id='total']"));
+	
 	}
-
-	@AfterEach
-	public void tearDown() throws Exception {		
-		driver.quit();
-	}
+	
 	
 	@Test
 	public void testSomaPositivos() throws InterruptedException {
@@ -59,7 +49,7 @@ public class CalculadoraTest {
 		Integer number2 = random.nextInt(100);
 		Integer valorTotal = 0;
 	
-		WebElement btnSomar = driver.findElement(By.id("somar"));	
+		WebElement btnSomar = getDriver().findElement(By.id("somar"));	
 						
 		tfNumber1.sendKeys(number1.toString());
 		tfNumber2.sendKeys(number2.toString());
@@ -82,7 +72,7 @@ public class CalculadoraTest {
 		Integer number2 = random.nextInt(100);
 		Integer valorTotal = 0;
 	
-		WebElement btnSubtrair = driver.findElement(By.id("subtrair"));	
+		WebElement btnSubtrair = getDriver().findElement(By.id("subtrair"));	
 						
 		tfNumber1.sendKeys(number1.toString());
 		tfNumber2.sendKeys(number2.toString());
@@ -105,7 +95,7 @@ public class CalculadoraTest {
 		Integer number2 = random.nextInt(100);
 		Integer valorTotal = 0;
 	
-		WebElement btnMultiplica = driver.findElement(By.id("multiplicar"));	
+		WebElement btnMultiplica = getDriver().findElement(By.id("multiplicar"));	
 						
 		tfNumber1.sendKeys(number1.toString());
 		tfNumber2.sendKeys(number2.toString());
@@ -127,7 +117,7 @@ public class CalculadoraTest {
 		Integer number2 = 50;
 		Integer valorTotal = 0;
 	
-		WebElement btnDivisao = driver.findElement(By.id("dividir"));	
+		WebElement btnDivisao = getDriver().findElement(By.id("dividir"));	
 						
 		tfNumber1.sendKeys(number1.toString());
 		tfNumber2.sendKeys(number2.toString());
@@ -148,7 +138,7 @@ public class CalculadoraTest {
 		Integer number1 = 100;
 		Integer number2 = 0;
 			
-		WebElement btnDivisao = driver.findElement(By.id("dividir"));	
+		WebElement btnDivisao = getDriver().findElement(By.id("dividir"));	
 						
 		tfNumber1.sendKeys(number1.toString());
 		tfNumber2.sendKeys(number2.toString());

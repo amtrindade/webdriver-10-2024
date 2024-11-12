@@ -10,3 +10,7 @@
 ### Pré-requisitos: ###
 * JDK >= 11 ou superior
 * Google Chrome
+
+
+## Estruturas das classes
+![alt text](image.png)

@@ -1,44 +1,34 @@
 package com.test;
 
+import static com.core.DriverFactory.getDriver;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class RegularExpressionTest {
+import com.core.BaseTest;
+
+public class RegularExpressionTest extends BaseTest{
 	
-	public WebDriver driver;
-
+	
 	@BeforeEach
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.chrome.driver", "/Users/umov.me/Dev/drivers/chromedriver");
-		driver = new ChromeDriver();
-		driver.get("https://www.geradordecpf.org/");
-		Thread.sleep(2000);
+		getDriver().get("https://www.geradordecpf.org/");
 	}
-
-	@AfterEach
-	public void tearDown() throws Exception {
-		Thread.sleep(2000);
-		driver.quit();
-	}
-	
+		
 	@Test
 	public void testGenerateCpf() throws InterruptedException {
-		WebElement cbPoint = driver.findElement(By.id("cbPontos"));
+		WebElement cbPoint = getDriver().findElement(By.id("cbPontos"));
 		cbPoint.click();
 		
-		WebElement btnGerar = driver.findElement(By.id("btn-gerar-cpf"));
+		WebElement btnGerar = getDriver().findElement(By.id("btn-gerar-cpf"));
 		btnGerar.click();
 		
 		Thread.sleep(2000);
 		
-		WebElement tfNumero = driver.findElement(By.id("numero"));
+		WebElement tfNumero = getDriver().findElement(By.id("numero"));
 		String cpf = tfNumero.getAttribute("value");
 		
 		System.out.println(cpf);		
@@ -49,12 +39,12 @@ public class RegularExpressionTest {
 	@Test
 	public void testGenerateCPFSemMascara() throws InterruptedException {
 		
-		WebElement btnGerar = driver.findElement(By.id("btn-gerar-cpf"));
+		WebElement btnGerar = getDriver().findElement(By.id("btn-gerar-cpf"));
 		btnGerar.click();
 		
 		Thread.sleep(2000);
 		
-		WebElement tfNumero = driver.findElement(By.id("numero"));
+		WebElement tfNumero = getDriver().findElement(By.id("numero"));
 		String cpf = tfNumero.getAttribute("value");
 		
 		System.out.println(cpf);		
