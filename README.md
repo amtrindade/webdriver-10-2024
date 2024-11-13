@@ -14,3 +14,6 @@
 
 ## Estruturas das classes
 ![alt text](image.png)
+
+## Estrutura de utilização do Page Objects
+![alt text](image-1.png)
